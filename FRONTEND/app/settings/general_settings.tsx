@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     height: 30,
   },
   headerTitle: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 24,
     color: '#08306B',
     textAlign: 'center',
