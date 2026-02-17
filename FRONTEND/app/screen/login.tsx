@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ActivityIndicator, // Add this import
+  ActivityIndicator, 
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     marginBottom: -120,
   },
   appName: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold', 
     fontSize: 36,
     color: '#08306B',
     textAlign: 'center',
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   subtitle: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 14,
     color: '#08306B',
     textAlign: 'center',
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   loginPrompt: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 15,
     color: '#08306B',
     textAlign: 'center',
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   inputLabel: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 13,
     color: '#08306B',
     marginBottom: 5,
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     fontSize: 13,
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     color: '#08306B',
   },
   passwordInputWithIcon: {
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   forgotPasswordText: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular',
     fontSize: 12,
     color: '#9DB2CE',
     opacity: 0.7,
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   loginButtonText: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold', 
     fontSize: 15,
     color: '#FFFFFF',
     letterSpacing: 1,
@@ -354,19 +354,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signUpText: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 13,
     color: '#9DB2CE',
     opacity: 0.8,
   },
   signUpLink: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold', 
     fontSize: 12,
     color: '#08306B',
     textDecorationLine: 'underline',
   },
   footer: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 14,
     color: '#9DB2CE',
     textAlign: 'center',

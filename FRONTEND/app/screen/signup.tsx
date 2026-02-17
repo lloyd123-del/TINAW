@@ -35,9 +35,9 @@ const SignUpScreen = () => {
   });
 
   const handleSignUp = () => {
-    // TEMPORARY BYPASS - Navigate directly without validation
+    
     console.log('Sign Up pressed - bypassing form');
-    router.replace('/tabs/add'); // Direct navigation to test the route
+    router.replace('/tabs/add'); 
   };
 
   const handleLogin = () => {

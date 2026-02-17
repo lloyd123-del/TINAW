@@ -58,12 +58,12 @@ const GeneralSetting = () => {
     // - Resetting any global state
     
     // Navigate to login screen
-    router.replace('/screen/login'); // Adjust this path to match your login screen
+    router.replace('/screen/login'); 
   };
 
   const handleBackToHome = () => {
     // Navigate to home screen
-    router.push('/tabs/home'); // or '/home' depending on your route structure
+    router.push('/tabs/home'); 
   };
 
   return (
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4292C6',
   },
   logoutButtonIcon: {
-    tintColor: '#FFFFFF', // Makes the icon white on blue background
+    tintColor: '#FFFFFF',
   },
   buttonText: {
     fontFamily: 'Poppins-Medium',

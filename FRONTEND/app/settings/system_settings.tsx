@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   backIcon: {
     width: 30,
     height: 30,
-    // Removed tintColor to keep original icon color
+    
   },
   headerTitle: {
     fontFamily: 'Poppins_700Bold',
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     marginRight: 12,
-    // Removed tintColor to keep original icon colors
+   
   },
   buttonText: {
     fontFamily: 'Poppins_500Medium',

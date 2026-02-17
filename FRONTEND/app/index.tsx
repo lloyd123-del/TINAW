@@ -7,7 +7,7 @@ import {
   Dimensions,
   SafeAreaView,
   StatusBar,
-  ActivityIndicator, // Add this import
+  ActivityIndicator, 
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
@@ -16,7 +16,7 @@ const { width, height } = Dimensions.get('window');
 
 const LoadingScreen = () => {
   const router = useRouter();
-  const [activeDot, setActiveDot] = useState(0); // 0, 1, or 2
+  const [activeDot, setActiveDot] = useState(0); 
 
   // Load fonts
   const [fontsLoaded] = useFonts({
@@ -25,31 +25,31 @@ const LoadingScreen = () => {
   });
 
   useEffect(() => {
-    // Only start the interval if fonts are loaded
+    
     if (!fontsLoaded) return;
 
-    // Create an interval that changes the active dot every 1 second
+   
     const interval = setInterval(() => {
       setActiveDot((prevDot) => {
-        // If this is the last dot (2), clear interval and navigate to login
+        
         if (prevDot === 2) {
           clearInterval(interval);
-          // Navigate to login screen after a tiny delay
+       
           setTimeout(() => {
             router.replace('/screen/login');
           }, 500);
           return prevDot;
         }
-        // Otherwise, move to next dot
+     t
         return prevDot + 1;
       });
-    }, 700); // 0.7 seconds for faster dot change
+    }, 700); 
 
-    // Cleanup interval on component unmount
+   
     return () => clearInterval(interval);
-  }, [fontsLoaded]); // Add fontsLoaded as dependency
+  }, [fontsLoaded]); 
 
-  // Show loading screen while fonts are loading
+  
   if (!fontsLoaded) {
     return (
       <View style={styles.loadingContainer}>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
-  // Add loading container style
+
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: -220,
   },
   appName: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold', 
     fontSize: 40,
     color: '#08306B',
     textAlign: 'center',
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
   subtitle: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 16,
     color: '#08306B',
     textAlign: 'center',

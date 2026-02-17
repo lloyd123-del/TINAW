@@ -55,7 +55,7 @@ export default function Add() {
   });
 
   const handleNext = () => {
-    // Updated route to match new path
+  
     router.push('/tab-contents/add_next');
   };
 
@@ -63,7 +63,7 @@ export default function Add() {
     router.back();
   };
 
-  // Show loading while fonts load
+
   if (!fontsLoaded) {
     return (
       <View style={styles.loadingContainer}>
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
 
   // Instruction
   instructionText: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 14,
     color: '#08306B',
     textAlign: 'center',
@@ -230,13 +230,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   stepTitle: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold',
     fontSize: 13,
     color: '#08306B',
     marginBottom: 2,
   },
   stepDescription: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 11,
     color: '#5A7FA8',
     lineHeight: 16,
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   nextButtonText: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_400Regular', 
     fontSize: 20,
     marginTop: 5,
     color: '#FFFFFF',
