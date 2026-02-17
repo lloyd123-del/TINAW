@@ -15,7 +15,7 @@ import {
   Platform,
   ScrollView,
   Alert,
-  ActivityIndicator, // Add this import
+  ActivityIndicator,
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -35,23 +35,9 @@ const SignUpScreen = () => {
   });
 
   const handleSignUp = () => {
-    if (!name || !email || !password || !confirmPassword) {
-      Alert.alert('Error', 'Please fill in all fields.');
-      return;
-    }
-    if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match.');
-      return;
-    }
-
-    console.log('Sign Up pressed', { name, email, password });
-
-    Alert.alert('Success', 'Account created! Please log in.', [
-      {
-        text: 'OK',
-        onPress: () => router.replace('../tabs/home'),
-      },
-    ]);
+    // TEMPORARY BYPASS - Navigate directly without validation
+    console.log('Sign Up pressed - bypassing form');
+    router.replace('/tabs/add'); // Direct navigation to test the route
   };
 
   const handleLogin = () => {
@@ -213,7 +199,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
-  // Add loading container style
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -248,14 +233,14 @@ const styles = StyleSheet.create({
     marginBottom: -100,
   },
   appName: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold',
     fontSize: 34,
     color: '#08306B',
     textAlign: 'center',
     marginBottom: 2,
   },
   subtitle: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular',
     fontSize: 13,
     color: '#08306B',
     textAlign: 'center',
@@ -263,14 +248,14 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   createAccountTitle: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold',
     fontSize: 26,
     color: '#08306B',
     textAlign: 'center',
     marginBottom: 4,
   },
   loginPrompt: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular',
     fontSize: 13,
     color: '#08306B',
     textAlign: 'center',
@@ -307,7 +292,7 @@ const styles = StyleSheet.create({
   inputWithIcon: {
     flex: 1,
     fontSize: 14,
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular',
     color: '#08306B',
     paddingVertical: 14,
   },
@@ -343,7 +328,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   signUpButtonText: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold',
     fontSize: 15,
     color: '#FFFFFF',
     letterSpacing: 1.5,
@@ -355,18 +340,18 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   loginText: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular',
     fontSize: 13,
     color: '#9DB2CE',
   },
   loginLink: {
-    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontFamily: 'Poppins_700Bold',
     fontSize: 13,
     color: '#08306B',
     textDecorationLine: 'underline',
   },
   footer: {
-    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontFamily: 'Poppins_400Regular',
     fontSize: 13,
     color: '#9DB2CE',
     textAlign: 'center',
