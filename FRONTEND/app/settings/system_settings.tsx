@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 300,
     height: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     paddingVertical: 8,
     paddingHorizontal: 16,

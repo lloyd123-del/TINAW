@@ -10,8 +10,10 @@ import {
   Image,
   Dimensions,
   Platform,
+  ActivityIndicator, 
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useFonts, Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,7 +22,7 @@ const steps = [
     id: 1,
     title: 'Connect the device to power',
     description: 'Plug in your device to ensure it is powered on',
-    icon: require('../../assets/images/Quick Mode On.png'), // lightning bolt icon
+    icon: require('../../assets/images/Quick Mode On.png'),
     iconBg: '#E8F4FF',
     iconTint: '#4292C6',
     iconSize: 48,
@@ -29,7 +31,7 @@ const steps = [
     id: 2,
     title: 'Put the device to setup mode',
     description: 'Press and hold the button on the device to enter setup mode',
-    icon: require('../../assets/images/Setup.png'), // power/on button icon
+    icon: require('../../assets/images/Setup.png'),
     iconBg: '#FFF0EE',
     iconSize: 48,
   },
@@ -37,7 +39,7 @@ const steps = [
     id: 3,
     title: 'Configure device and WiFi',
     description: 'Follow the on-screen instructions to set up the device and connect it to WiFi',
-    icon: require('../../assets/images/browse.png'), // wifi/device icon
+    icon: require('../../assets/images/browse.png'),
     iconBg: '#EEF4FF',
     iconSize: 48,
   },
@@ -46,14 +48,29 @@ const steps = [
 export default function Add() {
   const router = useRouter();
 
+  // Load fonts
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
+  });
+
   const handleNext = () => {
-    // Navigate to next step or device configuration
-    console.log('Next pressed');
+    // Updated route to match new path
+    router.push('/tab-contents/add_next');
   };
 
   const handleBack = () => {
     router.back();
   };
+
+  // Show loading while fonts load
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#4292C6" />
+      </View>
+    );
+  }
 
   return (
     <ImageBackground
@@ -66,11 +83,7 @@ export default function Add() {
 
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={handleBack} style={styles.backButton} activeOpacity={0.7}>
-            <Text style={styles.backArrow}>‹</Text>
-          </TouchableOpacity>
           <Text style={styles.headerTitle}>ADD DEVICE</Text>
-          <View style={styles.headerPlaceholder} />
         </View>
 
         {/* Main Content */}
@@ -127,35 +140,28 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
+  // Add loading container
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
 
   // Header
   header: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     paddingHorizontal: 20,
     paddingVertical: 16,
-  },
-  backButton: {
-    width: 36,
-    height: 36,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  backArrow: {
-    fontSize: 32,
-    color: '#08306B',
-    lineHeight: 36,
-    marginTop: -4,
+    width: '100%',
   },
   headerTitle: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold', 
     fontSize: 20,
+    textAlign: 'center',
     color: '#08306B',
     letterSpacing: 1,
-  },
-  headerPlaceholder: {
-    width: 36,
   },
 
   // Content
@@ -166,20 +172,20 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 
-  // WiFi Icon (custom drawn with nested rings)
+  // WiFi Icon
   iconWrapper: {
     width: 80,
     height: 80,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    marginTop: 30,
     marginBottom: 20,
     position: 'relative',
   },
 
-
   // Instruction
   instructionText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     fontSize: 14,
     color: '#08306B',
     textAlign: 'center',
@@ -224,13 +230,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   stepTitle: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
     fontSize: 13,
     color: '#08306B',
     marginBottom: 2,
   },
   stepDescription: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     fontSize: 11,
     color: '#5A7FA8',
     lineHeight: 16,
@@ -240,8 +246,8 @@ const styles = StyleSheet.create({
   nextButton: {
     backgroundColor: '#08306B',
     borderRadius: 30,
-    width: '65%',
-    paddingVertical: 15,
+    width: '40%',
+    height: '6%',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
@@ -250,9 +256,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   nextButtonText: {
-    fontFamily: 'Poppins-Bold',
-    fontSize: 15,
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Bold'
+    fontSize: 20,
+    marginTop: 5,
     color: '#FFFFFF',
-    letterSpacing: 2,
+    letterSpacing: 1,
   },
 });
