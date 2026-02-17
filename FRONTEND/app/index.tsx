@@ -40,7 +40,7 @@ const LoadingScreen = () => {
           }, 500);
           return prevDot;
         }
-     t
+     
         return prevDot + 1;
       });
     }, 700); 
