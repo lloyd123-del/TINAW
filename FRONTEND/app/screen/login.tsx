@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { router } from 'expo-router';
 import {
   View,
   Text,
@@ -11,7 +12,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -23,7 +23,8 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     // Add your login logic here
-    console.log('Login pressed', { email, password });
+    console.log('Login pressed');
+    router.replace('../tabs/home'); // Navigate to the home screen after login
   };
 
   const handleForgotPassword = () => {
@@ -54,96 +55,104 @@ const LoginScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}
       >
-        <ScrollView 
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* Content */}
-          <View style={styles.content}>
-            {/* Logo */}
-            <Image
-              source={require('../../assets/images/logo.png')}
-              style={styles.logo}
-              resizeMode="contain"
-            />
-            
-            {/* App Name */}
-            <Text style={styles.appName}>TINAW</Text>
-            
-            {/* Subtitle */}
-            <Text style={styles.subtitle}>IOT Crayfish Monitoring System</Text>
-            
-            {/* Login Prompt */}
-            <Text style={styles.loginPrompt}>Please Login to continue</Text>
-            
-            {/* Login Form */}
-            <View style={styles.formContainer}>
-              {/* Email Input */}
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Email</Text>
+        {/* Content - Fixed layout without ScrollView */}
+        <View style={styles.content}>
+          {/* Logo */}
+          <Image
+            source={require('../../assets/images/logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          
+          {/* App Name */}
+          <Text style={styles.appName}>TINAW</Text>
+          
+          {/* Subtitle */}
+          <Text style={styles.subtitle}>IOT Crayfish Monitoring System</Text>
+          
+          {/* Login Prompt */}
+          <Text style={styles.loginPrompt}>Please Login to continue</Text>
+          
+          {/* Login Form */}
+          <View style={styles.formContainer}>
+            {/* Email Input with Icon */}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Email</Text>
+              <View style={styles.iconInputWrapper}>
+                <Image
+                  source={require('../../assets/images/email.png')}
+                  style={styles.emailIcon}
+                  resizeMode="contain"
+                />
                 <TextInput
-                  style={styles.input}
-                  placeholder="Enter your email"
-                  placeholderTextColor="#9DB2CE"
+                  style={styles.inputWithIcon}
                   value={email}
                   onChangeText={setEmail}
                   keyboardType="email-address"
                   autoCapitalize="none"
                 />
               </View>
-              
-              {/* Password Input */}
-              <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Password</Text>
-                <View style={styles.passwordContainer}>
-                  <TextInput
-                    style={styles.passwordInput}
-                    placeholder="Enter your password"
-                    placeholderTextColor="#9DB2CE"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={!showPassword}
+            </View>
+            
+            {/* Password Input with Icon and Eye Toggle */}
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Password</Text>
+              <View style={styles.iconInputWrapper}>
+                <Image
+                  source={require('../../assets/images/pass.png')}
+                  style={styles.passIcon}
+                  resizeMode="contain"
+                />
+                <TextInput
+                  style={[styles.inputWithIcon, styles.passwordInputWithIcon]}
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={!showPassword}
+                />
+                <TouchableOpacity 
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={styles.eyeIcon}
+                >
+                  <Image
+                    source={require('../../assets/images/eye.png')}
+                    style={[
+                      styles.eyeIconImage,
+                      showPassword && styles.eyeIconActive
+                    ]}
+                    resizeMode="contain"
                   />
-                  <TouchableOpacity 
-                    onPress={() => setShowPassword(!showPassword)}
-                    style={styles.eyeIcon}
-                  >
-                    <Text style={styles.eyeIconText}>
-                      {showPassword ? '👁️' : '👁️‍🗨️'}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              
-              {/* Forgot Password */}
-              <TouchableOpacity 
-                onPress={handleForgotPassword}
-                style={styles.forgotPasswordContainer}
-              >
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-              </TouchableOpacity>
-              
-              {/* Login Button */}
-              <TouchableOpacity 
-                style={styles.loginButton}
-                onPress={handleLogin}
-              >
-                <Text style={styles.loginButtonText}>LOG IN</Text>
-              </TouchableOpacity>
-              
-              {/* Sign Up Link */}
-              <View style={styles.signUpContainer}>
-                <Text style={styles.signUpText}>Don't have an account? </Text>
-                <TouchableOpacity onPress={handleSignUp}>
-                  <Text style={styles.signUpLink}>Sign Up</Text>
                 </TouchableOpacity>
               </View>
             </View>
             
-            {/* Footer */}
-            <Text style={styles.footer}>TINAW © 2026</Text>
+            {/* Forgot Password */}
+            <TouchableOpacity 
+              onPress={handleForgotPassword}
+              style={styles.forgotPasswordContainer}
+            >
+              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
+            
+            {/* Login Button */}
+            <TouchableOpacity 
+              style={styles.loginButton}
+              onPress={handleLogin}
+            >
+              <Text style={styles.loginButtonText}>LOG IN</Text>
+            </TouchableOpacity>
+            
+            {/* Sign Up Link */}
+            <View style={styles.signUpContainer}>
+              <Text style={styles.signUpText}>Don't have an account? </Text>
+              <TouchableOpacity onPress={handleSignUp}>
+                <Text style={styles.signUpLink}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </ScrollView>
+          
+          {/* Footer */}
+          <Text style={styles.footer}>TINAW © 2026</Text>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -163,114 +172,132 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: width,
     height: height,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Light overlay for better readability
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   keyboardView: {
     flex: 1,
   },
-  scrollContent: {
-    flexGrow: 1,
-  },
   content: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center', // This centers everything vertically
     paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 20,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   logo: {
-    width: 500,
-    height: 600,
-    marginTop: -120,
-    marginBottom: -220,
+    width: 400, // Reduced from 500
+    height: 360, // Reduced from 600
+    marginBottom: -120, // Adjusted
   },
   appName: {
     fontFamily: 'Poppins-Bold',
-    fontSize: 40,
+    fontSize: 36, // Slightly reduced
     color: '#08306B',
     textAlign: 'center',
-    marginBottom: 4,
+    marginBottom: 2,
     textShadowColor: 'rgba(0, 0, 0, 0.1)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
   },
   subtitle: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 16,
+    fontSize: 14, // Slightly reduced
     color: '#08306B',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 50, // Reduced
     opacity: 0.9,
   },
   loginPrompt: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
+    fontSize: 15, // Slightly reduced
     color: '#08306B',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 15, // Reduced
     opacity: 0.8,
   },
   formContainer: {
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 380, // Slightly reduced
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 20,
-    padding: 20,
+    padding: 18, // Slightly reduced
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,
-    marginBottom: 60,
+    marginBottom: 20, // Reduced
   },
   inputContainer: {
-    marginBottom: 16,
+    marginBottom: 14, // Slightly reduced
   },
   inputLabel: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 14,
+    fontSize: 13, // Slightly reduced
     color: '#08306B',
-    marginBottom: 6,
+    marginBottom: 5,
     fontWeight: '500',
   },
-  input: {
-    backgroundColor: '#F5F7FA',
-    borderRadius: 10,
-    padding: 12,
-    fontSize: 14,
-    fontFamily: 'Poppins-Regular',
-    color: '#08306B',
-    borderWidth: 1,
-    borderColor: '#E0E7F0',
-  },
-  passwordContainer: {
+  iconInputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#F5F7FA',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#E0E7F0',
+    paddingHorizontal: 8,
+    minHeight: 55, // Slightly reduced
   },
-  passwordInput: {
+  emailIcon: {
+    width: 35, // Reduced
+    height: 40, // Reduced
+    marginRight: 10,
+    tintColor: '#08306B',
+    opacity: 0.8,
+    resizeMode: 'contain',
+  },
+  passIcon: {
+    width: 40, // Adjusted
+    height: 35, // Adjusted
+    marginRight: 8,
+    marginLeft: -2,
+    tintColor: '#08306B',
+    opacity: 0.8,
+    resizeMode: 'contain',
+  },
+  inputWithIcon: {
     flex: 1,
-    padding: 12,
-    fontSize: 14,
+    paddingVertical: 12, // Slightly reduced
+    fontSize: 13, // Slightly reduced
     fontFamily: 'Poppins-Regular',
     color: '#08306B',
   },
-  eyeIcon: {
-    padding: 12,
+  passwordInputWithIcon: {
+    marginRight: 40,
   },
-  eyeIconText: {
-    fontSize: 18,
+  eyeIcon: {
+    position: 'absolute',
+    right: 8,
+    padding: 4,
+  },
+  eyeIconImage: {
+    width: 35, // Reduced
+    height: 40, // Reduced
+    tintColor: '#08306B',
+    opacity: 0.6,
+    resizeMode: 'contain',
+  },
+  eyeIconActive: {
+    opacity: 1,
+    tintColor: '#4292C6',
   },
   forgotPasswordContainer: {
     alignItems: 'flex-end',
-    marginBottom: 20,
+    marginBottom: 16, // Reduced
   },
   forgotPasswordText: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 12,
+    fontSize: 12, // Slightly reduced
     color: '#9DB2CE',
     opacity: 0.7,
     textDecorationLine: 'underline',
@@ -279,19 +306,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#4292C6',
     borderRadius: 30,
     width: '60%',
-    padding: 16,
+    padding: 14, // Slightly reduced
     alignItems: 'center',
-    alignSelf: 'center', // This centers the button horizontally
-    marginBottom: 16,
+    alignSelf: 'center',
+    marginBottom: 14, // Reduced
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 3,
-},
+  },
   loginButtonText: {
     fontFamily: 'Poppins-Bold',
-    fontSize: 16,
+    fontSize: 15, // Slightly reduced
     color: '#FFFFFF',
     letterSpacing: 1,
   },
@@ -302,22 +329,23 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 13,
+    fontSize: 13, // Slightly reduced
     color: '#9DB2CE',
     opacity: 0.8,
   },
   signUpLink: {
     fontFamily: 'Poppins-Bold',
-    fontSize: 13,
+    fontSize: 12, // Slightly reduced
     color: '#08306B',
     textDecorationLine: 'underline',
   },
   footer: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 16,
+    fontSize: 14, // Slightly reduced
     color: '#9DB2CE',
     textAlign: 'center',
-    marginTop: 30,
+    marginTop: 100, // Reduced
+    marginBottom: -10, // Reduced
     opacity: 0.6,
     letterSpacing: 1,
   },
