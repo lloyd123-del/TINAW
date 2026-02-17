@@ -35,6 +35,7 @@ const LoginScreen = () => {
   const handleSignUp = () => {
     // Add sign up navigation
     console.log('Sign up');
+    router.replace('../screen/signup'); // Navigate to the sign up screen
   };
 
   return (

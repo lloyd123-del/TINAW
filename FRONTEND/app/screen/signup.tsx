@@ -41,7 +41,7 @@ const SignUpScreen = () => {
     Alert.alert('Success', 'Account created! Please log in.', [
       {
         text: 'OK',
-        onPress: () => router.replace('/screen/login'),
+        onPress: () => router.replace('../screen/home'),
       },
     ]);
   };
