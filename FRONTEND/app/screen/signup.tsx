@@ -34,7 +34,7 @@ const SignUpScreen = () => {
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match.');
       return;
-    }
+    } // JL BAYOT
 
     console.log('Sign Up pressed', { name, email, password });
 
