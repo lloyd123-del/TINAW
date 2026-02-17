@@ -18,4 +18,5 @@ cd backend
 npm install
 cp .env.example .env
 # Edit .env with your configuration
-npm start
+npm start"# TINAW" 
+"# TINAW" 
