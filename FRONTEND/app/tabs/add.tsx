@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   stepCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.88)',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
     borderRadius: 14,
     paddingVertical: 14,
     paddingHorizontal: 16,
