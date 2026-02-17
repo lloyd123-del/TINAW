@@ -43,7 +43,7 @@ const LoadingScreen = () => {
         // Otherwise, move to next dot
         return prevDot + 1;
       });
-    }, 1000); // 1 second
+    }, 700); // 0.7 seconds for faster dot change
 
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
