@@ -7,8 +7,10 @@ import {
   Dimensions,
   SafeAreaView,
   StatusBar,
+  ActivityIndicator, // Add this import
 } from 'react-native';
-import { useRouter } from 'expo-router'; // For navigation
+import { useRouter } from 'expo-router';
+import { useFonts, Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,8 +18,17 @@ const LoadingScreen = () => {
   const router = useRouter();
   const [activeDot, setActiveDot] = useState(0); // 0, 1, or 2
 
+  // Load fonts
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
+  });
+
   useEffect(() => {
-    // Create an interval that changes the active dot every 2 seconds
+    // Only start the interval if fonts are loaded
+    if (!fontsLoaded) return;
+
+    // Create an interval that changes the active dot every 1 second
     const interval = setInterval(() => {
       setActiveDot((prevDot) => {
         // If this is the last dot (2), clear interval and navigate to login
@@ -25,18 +36,27 @@ const LoadingScreen = () => {
           clearInterval(interval);
           // Navigate to login screen after a tiny delay
           setTimeout(() => {
-            router.replace('/screen/login'); // Change this to your login screen path
+            router.replace('/screen/login');
           }, 500);
           return prevDot;
         }
         // Otherwise, move to next dot
         return prevDot + 1;
       });
-    }, 1000); // 2 seconds
+    }, 1000); // 1 second
 
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
-  }, []);
+  }, [fontsLoaded]); // Add fontsLoaded as dependency
+
+  // Show loading screen while fonts are loading
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#4292C6" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,10 +78,10 @@ const LoadingScreen = () => {
           resizeMode="contain"
         />
         
-        {/* App Name */}
+        {/* App Name - Fixed font family name */}
         <Text style={styles.appName}>TINAW</Text>
         
-        {/* Subtitle */}
+        {/* Subtitle - Fixed font family name */}
         <Text style={styles.subtitle}>IOT Crayfish Monitoring System</Text>
         
         {/* Pagination Dots */}
@@ -80,6 +100,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
+  // Add loading container style
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
   backgroundImage: {
     position: 'absolute',
     width: width,
@@ -97,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: -220,
   },
   appName: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
     fontSize: 40,
     color: '#08306B',
     textAlign: 'center',
@@ -107,7 +134,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 4,
   },
   subtitle: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     fontSize: 16,
     color: '#08306B',
     textAlign: 'center',

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { router } from 'expo-router';
+import { useFonts, Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import {
   View,
   Text,
@@ -14,6 +15,7 @@ import {
   Platform,
   ScrollView,
   Alert,
+  ActivityIndicator, // Add this import
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -26,6 +28,12 @@ const SignUpScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Load fonts
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
+  });
+
   const handleSignUp = () => {
     if (!name || !email || !password || !confirmPassword) {
       Alert.alert('Error', 'Please fill in all fields.');
@@ -34,14 +42,14 @@ const SignUpScreen = () => {
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match.');
       return;
-    } // JL BAYOT
+    }
 
     console.log('Sign Up pressed', { name, email, password });
 
     Alert.alert('Success', 'Account created! Please log in.', [
       {
         text: 'OK',
-        onPress: () => router.replace('../screen/home'),
+        onPress: () => router.replace('../tabs/home'),
       },
     ]);
   };
@@ -49,6 +57,15 @@ const SignUpScreen = () => {
   const handleLogin = () => {
     router.replace('/screen/login');
   };
+
+  // Show loading screen while fonts are loading
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#4292C6" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -82,7 +99,7 @@ const SignUpScreen = () => {
           <Text style={styles.subtitle}>IOT Crayfish Monitoring System</Text>
 
           <Text style={styles.createAccountTitle}>Create Account</Text>
-          <Text style={styles.loginPrompt}>Please Login to continue</Text>
+          <Text style={styles.loginPrompt}>Please sign up to continue</Text>
 
           <View style={styles.formContainer}>
 
@@ -95,7 +112,8 @@ const SignUpScreen = () => {
               />
               <TextInput
                 style={styles.inputWithIcon}
-                placeholder=""
+                placeholder="Full Name"
+                placeholderTextColor="#9DB2CE"
                 value={name}
                 onChangeText={setName}
                 autoCapitalize="words"
@@ -111,7 +129,8 @@ const SignUpScreen = () => {
               />
               <TextInput
                 style={styles.inputWithIcon}
-                placeholder=""
+                placeholder="Email Address"
+                placeholderTextColor="#9DB2CE"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
@@ -128,7 +147,8 @@ const SignUpScreen = () => {
               />
               <TextInput
                 style={[styles.inputWithIcon, styles.passwordInput]}
-                placeholder=""
+                placeholder="Password"
+                placeholderTextColor="#9DB2CE"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
@@ -151,7 +171,8 @@ const SignUpScreen = () => {
               />
               <TextInput
                 style={[styles.inputWithIcon, styles.passwordInput]}
-                placeholder=""
+                placeholder="Confirm Password"
+                placeholderTextColor="#9DB2CE"
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 secureTextEntry={!showConfirmPassword}
@@ -192,6 +213,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
+  // Add loading container style
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
   backgroundImage: {
     position: 'absolute',
     width: width,
@@ -220,14 +248,14 @@ const styles = StyleSheet.create({
     marginBottom: -100,
   },
   appName: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
     fontSize: 34,
     color: '#08306B',
     textAlign: 'center',
     marginBottom: 2,
   },
   subtitle: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     fontSize: 13,
     color: '#08306B',
     textAlign: 'center',
@@ -235,14 +263,14 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   createAccountTitle: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
     fontSize: 26,
     color: '#08306B',
     textAlign: 'center',
     marginBottom: 4,
   },
   loginPrompt: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     fontSize: 13,
     color: '#08306B',
     textAlign: 'center',
@@ -258,7 +286,7 @@ const styles = StyleSheet.create({
   iconInputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    backgroundColor: '#F5F7FA',
     borderRadius: 14,
     paddingHorizontal: 14,
     width: '100%',
@@ -270,8 +298,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   inputIcon: {
-    width: 22,
-    height: 22,
+    width: 30,
+    height: 30,
     marginRight: 12,
     tintColor: '#08306B',
     opacity: 0.7,
@@ -279,7 +307,7 @@ const styles = StyleSheet.create({
   inputWithIcon: {
     flex: 1,
     fontSize: 14,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     color: '#08306B',
     paddingVertical: 14,
   },
@@ -315,7 +343,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   signUpButtonText: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
     fontSize: 15,
     color: '#FFFFFF',
     letterSpacing: 1.5,
@@ -327,18 +355,18 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   loginText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     fontSize: 13,
     color: '#9DB2CE',
   },
   loginLink: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
     fontSize: 13,
     color: '#08306B',
     textDecorationLine: 'underline',
   },
   footer: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     fontSize: 13,
     color: '#9DB2CE',
     textAlign: 'center',

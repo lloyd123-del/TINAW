@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { router } from 'expo-router';
+import { useFonts, Poppins_400Regular, Poppins_700Bold } from "@expo-google-fonts/poppins";
 import {
   View,
   Text,
@@ -12,6 +13,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  ActivityIndicator, // Add this import
 } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -21,22 +23,34 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  // Load fonts
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
+  });
+
   const handleLogin = () => {
-    // Add your login logic here
     console.log('Login pressed');
-    router.replace('../tabs/home'); // Navigate to the home screen after login
+    router.replace('../tabs/home');
   };
 
   const handleForgotPassword = () => {
-    // Add forgot password navigation
     console.log('Forgot password');
   };
 
   const handleSignUp = () => {
-    // Add sign up navigation
     console.log('Sign up');
-    router.replace('../screen/signup'); // Navigate to the sign up screen
+    router.replace('../screen/signup');
   };
+
+  // Show loading screen while fonts are loading
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#4292C6" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,7 +79,7 @@ const LoginScreen = () => {
             resizeMode="contain"
           />
           
-          {/* App Name */}
+          {/* App Name - Fixed font family names */}
           <Text style={styles.appName}>TINAW</Text>
           
           {/* Subtitle */}
@@ -91,6 +105,8 @@ const LoginScreen = () => {
                   onChangeText={setEmail}
                   keyboardType="email-address"
                   autoCapitalize="none"
+                  placeholder="Enter your email"
+                  placeholderTextColor="#9DB2CE"
                 />
               </View>
             </View>
@@ -109,6 +125,8 @@ const LoginScreen = () => {
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
+                  placeholder="Enter your password"
+                  placeholderTextColor="#9DB2CE"
                 />
                 <TouchableOpacity 
                   onPress={() => setShowPassword(!showPassword)}
@@ -164,6 +182,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
   },
+  // Add loading container style
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
   backgroundImage: {
     position: 'absolute',
     width: width,
@@ -181,18 +206,18 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center', // This centers everything vertically
+    justifyContent: 'center',
     paddingHorizontal: 20,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   logo: {
-    width: 400, // Reduced from 500
-    height: 360, // Reduced from 600
-    marginBottom: -120, // Adjusted
+    width: 400,
+    height: 360,
+    marginBottom: -120,
   },
   appName: {
-    fontFamily: 'Poppins-Bold',
-    fontSize: 36, // Slightly reduced
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontSize: 36,
     color: '#08306B',
     textAlign: 'center',
     marginBottom: 2,
@@ -201,40 +226,40 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
   subtitle: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14, // Slightly reduced
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontSize: 14,
     color: '#08306B',
     textAlign: 'center',
-    marginBottom: 50, // Reduced
+    marginBottom: 50,
     opacity: 0.9,
   },
   loginPrompt: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 15, // Slightly reduced
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontSize: 15,
     color: '#08306B',
     textAlign: 'center',
-    marginBottom: 15, // Reduced
+    marginBottom: 15,
     opacity: 0.8,
   },
   formContainer: {
     width: '100%',
-    maxWidth: 380, // Slightly reduced
+    maxWidth: 380,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 20,
-    padding: 18, // Slightly reduced
+    padding: 18,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,
-    marginBottom: 20, // Reduced
+    marginBottom: 20,
   },
   inputContainer: {
-    marginBottom: 14, // Slightly reduced
+    marginBottom: 14,
   },
   inputLabel: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 13, // Slightly reduced
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontSize: 13,
     color: '#08306B',
     marginBottom: 5,
     fontWeight: '500',
@@ -245,21 +270,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F7FA',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#E0E7F0',
+    borderColor: '#E0E0E0',
     paddingHorizontal: 8,
-    minHeight: 55, // Slightly reduced
+    minHeight: 55,
   },
   emailIcon: {
-    width: 35, // Reduced
-    height: 40, // Reduced
+    width: 35,
+    height: 40,
     marginRight: 10,
     tintColor: '#08306B',
     opacity: 0.8,
     resizeMode: 'contain',
   },
   passIcon: {
-    width: 40, // Adjusted
-    height: 35, // Adjusted
+    width: 40,
+    height: 35,
     marginRight: 8,
     marginLeft: -2,
     tintColor: '#08306B',
@@ -268,9 +293,9 @@ const styles = StyleSheet.create({
   },
   inputWithIcon: {
     flex: 1,
-    paddingVertical: 12, // Slightly reduced
-    fontSize: 13, // Slightly reduced
-    fontFamily: 'Poppins-Regular',
+    paddingVertical: 12,
+    fontSize: 13,
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
     color: '#08306B',
   },
   passwordInputWithIcon: {
@@ -282,8 +307,8 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   eyeIconImage: {
-    width: 35, // Reduced
-    height: 40, // Reduced
+    width: 35,
+    height: 40,
     tintColor: '#08306B',
     opacity: 0.6,
     resizeMode: 'contain',
@@ -294,11 +319,11 @@ const styles = StyleSheet.create({
   },
   forgotPasswordContainer: {
     alignItems: 'flex-end',
-    marginBottom: 16, // Reduced
+    marginBottom: 16,
   },
   forgotPasswordText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12, // Slightly reduced
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontSize: 12,
     color: '#9DB2CE',
     opacity: 0.7,
     textDecorationLine: 'underline',
@@ -307,10 +332,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#4292C6',
     borderRadius: 30,
     width: '60%',
-    padding: 14, // Slightly reduced
+    padding: 14,
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: 14, // Reduced
+    marginBottom: 14,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -318,8 +343,8 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   loginButtonText: {
-    fontFamily: 'Poppins-Bold',
-    fontSize: 15, // Slightly reduced
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontSize: 15,
     color: '#FFFFFF',
     letterSpacing: 1,
   },
@@ -329,27 +354,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   signUpText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 13, // Slightly reduced
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontSize: 13,
     color: '#9DB2CE',
     opacity: 0.8,
   },
   signUpLink: {
-    fontFamily: 'Poppins-Bold',
-    fontSize: 12, // Slightly reduced
+    fontFamily: 'Poppins_700Bold', // Changed from 'Poppins-Bold'
+    fontSize: 12,
     color: '#08306B',
     textDecorationLine: 'underline',
   },
   footer: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14, // Slightly reduced
+    fontFamily: 'Poppins_400Regular', // Changed from 'Poppins-Regular'
+    fontSize: 14,
     color: '#9DB2CE',
     textAlign: 'center',
-    marginTop: 100, // Reduced
-    marginBottom: 30, // Reduced
+    marginTop: 100,
+    marginBottom: 30,
     opacity: 0.6,
     letterSpacing: 1,
-  }, // golids gwapo
+  },
 });
 
 export default LoginScreen;
