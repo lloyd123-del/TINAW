@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
     color: '#9DB2CE',
     textAlign: 'center',
     marginTop: 100, // Reduced
-    marginBottom: -10, // Reduced
+    marginBottom: 30, // Reduced
     opacity: 0.6,
     letterSpacing: 1,
   },
