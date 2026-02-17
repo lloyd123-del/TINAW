@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     marginBottom: 30, // Reduced
     opacity: 0.6,
     letterSpacing: 1,
-  },
+  }, // golids gwapo
 });
 
 export default LoginScreen;
